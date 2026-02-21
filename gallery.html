@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Gallery – Gruha Alankara</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-icon">🏛</div>
+    <div class="nav-brand-text">
+      <span class="brand-main">Gruha Alankara</span>
+      <span class="brand-sub">Design Gallery</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/gallery" class="active">Gallery</a></li>
+    <li><a href="/design-studio">Studio</a></li>
+    <li><a href="/ar-view">AR View</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="/design-studio" class="btn btn-primary btn-sm">+ Create Design</a>
+    <button class="nav-hamburger" id="navHam"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile-drawer">
+  <a href="/dashboard">📊 Dashboard</a>
+  <a href="/gallery">🖼 Gallery</a>
+  <a href="/design-studio">🎨 Design Studio</a>
+  <a href="/ar-view">📱 AR View</a>
+</div>
+
+<div class="page">
+  <section class="section">
+    <div class="container">
+      <!-- Header -->
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap;">
+        <div>
+          <span class="section-eyebrow">Curated Collection</span>
+          <h1 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.5rem);font-weight:700;color:var(--text-primary);margin-top:0.5rem;">Design Gallery</h1>
+          <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.4rem;">Discover 500+ AI-curated Indian and international interior designs</p>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <button class="btn btn-ghost btn-sm" onclick="Toast.info('Search','Search feature coming soon!')">🔍 Search</button>
+          <button class="btn btn-ghost btn-sm" onclick="Toast.info('Sort','Random sorting applied!')">↕ Sort</button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">All Designs</button>
+        <button class="filter-btn" data-filter="living">Living Room</button>
+        <button class="filter-btn" data-filter="bedroom">Bedroom</button>
+        <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+        <button class="filter-btn" data-filter="traditional">Indian Traditional</button>
+        <button class="filter-btn" data-filter="modern">Modern</button>
+        <button class="filter-btn" data-filter="minimal">Minimalist</button>
+        <button class="filter-btn" data-filter="bohemian">Bohemian</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid">
+
+        <!-- Featured Item -->
+        <div class="gallery-item featured reveal-item" data-category="living" style="background:linear-gradient(135deg,#0d2b1e,#1a4a2e);">
+          <div class="gallery-item-bg" style="font-size:5rem;background:linear-gradient(135deg,#0d2b1e,#1a4a2e);">🛋️</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Contemporary Kerala Living Room</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Featured</span>
+              <span class="gallery-tag">Living Room</span>
+              <span class="gallery-tag">Traditional</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!','Added to your collection.')">⭐ Save</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 Try in AR</button>
+              <button class="btn btn-secondary btn-sm" onclick="Toast.info('Shared!','Link copied to clipboard.')">↗ Share</button>
+            </div>
+          </div>
+          <div style="position:absolute;top:1rem;left:1rem;z-index:5;">
+            <span class="tag tag-gold">✦ Featured</span>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="bedroom" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">
+          <div class="gallery-item-bg">🛏️</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Royal Rajasthani Bedroom</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Bedroom</span>
+              <span class="gallery-tag">Traditional</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="kitchen" style="background:linear-gradient(135deg,#2a1a0e,#3d2b10);">
+          <div class="gallery-item-bg">🍳</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Modular Mumbai Kitchen</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Kitchen</span>
+              <span class="gallery-tag">Modern</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="modern" style="background:linear-gradient(135deg,#0e1a2e,#162840);">
+          <div class="gallery-item-bg">🖥️</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Bangalore Tech Home Office</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Office</span>
+              <span class="gallery-tag">Modern</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="bohemian" style="background:linear-gradient(135deg,#2e1a0e,#4a2e1a);">
+          <div class="gallery-item-bg">🌿</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Goa Bohemian Studio</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Bohemian</span>
+              <span class="gallery-tag">Studio</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="minimal" style="background:linear-gradient(135deg,#1a1a1a,#2a2a2a);">
+          <div class="gallery-item-bg">⬜</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Zen Minimalist Delhi Flat</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Minimalist</span>
+              <span class="gallery-tag">Living</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="traditional" style="background:linear-gradient(135deg,#1e0e00,#3a1a05);">
+          <div class="gallery-item-bg">🪔</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Heritage Haveli Pooja Room</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Traditional</span>
+              <span class="gallery-tag">Spiritual</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="bedroom" style="background:linear-gradient(135deg,#1a0e1a,#2e142e);">
+          <div class="gallery-item-bg">🌸</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Pastel Kids Room Delight</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Kids</span>
+              <span class="gallery-tag">Playful</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="living" style="background:linear-gradient(135deg,#0a1a10,#142814);">
+          <div class="gallery-item-bg">🌿</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Biophilic Hyderabad Living</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Biophilic</span>
+              <span class="gallery-tag">Natural</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="modern" style="background:linear-gradient(135deg,#0e0e1a,#1a1a2e);">
+          <div class="gallery-item-bg">✨</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Luxury Mumbai Penthouse</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Luxury</span>
+              <span class="gallery-tag">Modern</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal-item" data-category="kitchen" style="background:linear-gradient(135deg,#1a0e00,#2e1e05);">
+          <div class="gallery-item-bg">☕</div>
+          <div class="gallery-overlay">
+            <div class="gallery-item-title">Rustic South Indian Dining</div>
+            <div class="gallery-item-tags">
+              <span class="gallery-tag">Dining</span>
+              <span class="gallery-tag">Rustic</span>
+            </div>
+            <div class="gallery-item-actions">
+              <button class="btn btn-primary btn-sm" onclick="Toast.success('Saved!')">⭐</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/ar-view'">📱 AR</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Load more -->
+      <div style="text-align:center;margin-top:3rem;">
+        <button class="btn btn-secondary btn-lg" onclick="Toast.info('Loading...','More designs coming!')">
+          Load More Designs ↓
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<button class="voice-btn" id="voiceBtn" aria-label="Voice Assistant">🎤</button>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>

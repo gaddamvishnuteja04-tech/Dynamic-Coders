@@ -1,0 +1,17 @@
+# Minimal deps – avoids packages that need compilation
+# Use: pip install --upgrade pip
+#      pip install -r requirements-basic.txt
+
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-Login==0.6.3
+Flask-WTF==1.2.1
+Flask-Limiter==3.7.0
+Flask-CORS==4.0.1
+Werkzeug==3.0.3
+SQLAlchemy==2.0.31
+
+gTTS==2.5.3
+python-dotenv==1.0.1
+marshmallow==3.21.3
+email-validator==2.2.0

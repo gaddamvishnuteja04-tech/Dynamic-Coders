@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account – Gruha Alankara</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-icon">🏛</div>
+    <div class="nav-brand-text">
+      <span class="brand-main">Gruha Alankara</span>
+      <span class="brand-sub">Interior · AR · AI</span>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <a href="/login" class="btn btn-ghost btn-sm">Sign In</a>
+  </div>
+</nav>
+
+<div class="auth-page" style="grid-template-columns:1fr 1.2fr;">
+  <!-- Visual -->
+  <div class="auth-visual" style="background:radial-gradient(ellipse 60% 50% at 40% 60%,rgba(61,232,208,0.07) 0%,transparent 60%),var(--bg-deep);">
+    <div class="auth-visual-bg"></div>
+    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+      <div style="position:absolute;width:250px;height:250px;border:1px solid rgba(61,232,208,0.1);border-radius:50%;top:30%;left:60%;transform:translate(-50%,-50%);animation:rotateRing 30s linear infinite;"></div>
+      <div style="position:absolute;width:180px;height:180px;background:radial-gradient(circle,rgba(240,192,96,0.06) 0%,transparent 70%);top:60%;left:30%;border-radius:50%;"></div>
+    </div>
+    <div class="auth-visual-content">
+      <div class="auth-visual-icon">✨</div>
+      <div class="auth-visual-quote">"Design is not just what it looks like. Design is how it works."</div>
+      <div class="auth-visual-attr">— Steve Jobs</div>
+
+      <div style="margin-top:2rem;padding:1.5rem;background:rgba(255,255,255,0.02);border:1px solid var(--border-subtle);border-radius:var(--radius-md);">
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.1em;">What you get for free</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);">◆</span> 5 AI design analyses/month
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);">◆</span> Unlimited AR placements
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);">◆</span> Access to 200+ style templates
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);">◆</span> Personal design gallery
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="auth-form-side">
+    <div class="auth-form-box" style="max-width:520px;">
+      <div class="auth-form-header">
+        <div class="tag tag-teal" style="margin-bottom:1rem;">Free to start</div>
+        <h1 class="auth-form-title">Create your<br>design workspace</h1>
+        <p class="auth-form-subtitle">Join 12,000+ Indian homeowners designing smarter.</p>
+      </div>
+
+      <form class="auth-form" id="registerForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label" for="regName">Full Name</label>
+            <input class="form-input" type="text" id="regName" placeholder="Priya Sharma" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regPhone">Phone (optional)</label>
+            <input class="form-input" type="tel" id="regPhone" placeholder="+91 98765..." />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regEmail">Email Address</label>
+          <div class="form-input-icon">
+            <span class="input-icon">✉</span>
+            <input class="form-input" type="email" id="regEmail" placeholder="you@example.com" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regRole">I am a</label>
+          <select class="form-select" id="regRole">
+            <option value="">Select your role</option>
+            <option>Homeowner</option>
+            <option>Interior Designer</option>
+            <option>Architect</option>
+            <option>Real Estate Developer</option>
+            <option>Student</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regPassword">Password</label>
+          <div class="password-wrapper">
+            <input class="form-input" type="password" id="regPassword" placeholder="Min. 8 characters" style="padding-right:3rem;" required />
+            <button type="button" class="password-toggle">👁️</button>
+          </div>
+          <!-- Password strength -->
+          <div style="margin-top:0.5rem;">
+            <div style="height:3px;background:var(--bg-elevated);border-radius:100px;overflow:hidden;">
+              <div id="passwordStrength" style="height:100%;width:0%;border-radius:100px;transition:all 0.3s ease;"></div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:0.25rem;">
+              <span id="strengthLabel" style="font-size:0.72rem;font-weight:600;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regConfirm">Confirm Password</label>
+          <div class="password-wrapper">
+            <input class="form-input" type="password" id="regConfirm" placeholder="Repeat your password" style="padding-right:3rem;" required />
+            <button type="button" class="password-toggle">👁️</button>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:0.6rem;">
+          <input type="checkbox" id="agreeTerms" required style="accent-color:var(--gold-mid);width:16px;height:16px;margin-top:2px;flex-shrink:0;" />
+          <label for="agreeTerms" style="font-size:0.82rem;color:var(--text-muted);cursor:pointer;line-height:1.5;">
+            I agree to the <a href="#" style="color:var(--gold-bright);">Terms of Service</a> and <a href="#" style="color:var(--gold-bright);">Privacy Policy</a>. I consent to receive design tips and updates.
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg">Create Free Account →</button>
+      </form>
+
+      <p class="auth-footer-link">
+        Already have an account? <a href="/login">Sign in</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>

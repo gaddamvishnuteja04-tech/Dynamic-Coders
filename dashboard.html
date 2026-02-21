@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – Gruha Alankara</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-icon">🏛</div>
+    <div class="nav-brand-text">
+      <span class="brand-main">Gruha Alankara</span>
+      <span class="brand-sub">Interior · AR · AI</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/design-studio">Studio</a></li>
+    <li><a href="/ar-view">AR View</a></li>
+    <li><a href="/dashboard" class="active">Dashboard</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn btn-ghost btn-sm" id="sidebarToggle" style="display:none;">☰</button>
+    <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold-mid),var(--terra));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;cursor:pointer;">P</div>
+    <a href="/login" class="btn btn-ghost btn-sm" onclick="Toast.success('Signed out','See you soon!')">Sign Out</a>
+    <button class="nav-hamburger" id="navHam"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div style="padding:0.5rem 0.75rem 1rem;border-bottom:1px solid var(--border-subtle);margin-bottom:0.5rem;">
+      <div style="font-size:0.75rem;color:var(--text-muted);">Signed in as</div>
+      <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary);margin-top:0.2rem;">Priya Sharma</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);">priya@example.com</div>
+    </div>
+
+    <span class="sidebar-section-label">Main</span>
+    <a href="/dashboard" class="sidebar-link active">
+      <span class="sidebar-link-icon">📊</span> Overview
+    </a>
+    <a href="/design-studio" class="sidebar-link">
+      <span class="sidebar-link-icon">🎨</span> Design Studio
+    </a>
+    <a href="/ar-view" class="sidebar-link">
+      <span class="sidebar-link-icon">📱</span> AR View
+    </a>
+    <a href="/gallery" class="sidebar-link">
+      <span class="sidebar-link-icon">🖼</span> Gallery
+    </a>
+
+    <span class="sidebar-section-label">Projects</span>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">📁</span> My Projects
+      <span class="sidebar-badge">3</span>
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">⭐</span> Saved Designs
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">📤</span> Shared
+    </a>
+
+    <span class="sidebar-section-label">Tools</span>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">🤖</span> AI Suggestions
+      <span class="sidebar-badge" style="background:var(--teal-glow);color:var(--teal-bright);border-color:rgba(61,232,208,0.15);">New</span>
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">🎤</span> Voice Commands
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">📐</span> Room Planner
+    </a>
+
+    <span class="sidebar-section-label">Account</span>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">⚙️</span> Settings
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="sidebar-link-icon">💎</span> Upgrade Plan
+    </a>
+    <a href="/login" class="sidebar-link" style="color:var(--terra);">
+      <span class="sidebar-link-icon">🚪</span> Sign Out
+    </a>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div>
+        <div class="dashboard-greeting">Good morning ☀️</div>
+        <div class="dashboard-title">Welcome back, Priya</div>
+      </div>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <a href="/design-studio" class="btn btn-primary">+ New Design</a>
+        <a href="/ar-view" class="btn btn-secondary">Launch AR</a>
+      </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="dashboard-stats-grid">
+      <div class="stat-card reveal-item">
+        <div class="stat-icon stat-icon-gold">🏠</div>
+        <div class="stat-value" data-target="12" data-suffix="">12</div>
+        <div class="stat-label">Active Projects</div>
+        <div class="stat-change up">↑ 3 this month</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="stat-icon stat-icon-teal">🤖</div>
+        <div class="stat-value" data-target="47" data-suffix="">47</div>
+        <div class="stat-label">AI Analyses</div>
+        <div class="stat-change up">↑ 12 this week</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="stat-icon stat-icon-terra">📱</div>
+        <div class="stat-value" data-target="89" data-suffix="">89</div>
+        <div class="stat-label">AR Sessions</div>
+        <div class="stat-change up">↑ 24% vs last month</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="stat-icon stat-icon-purple">⭐</div>
+        <div class="stat-value" data-target="234" data-suffix="">234</div>
+        <div class="stat-label">Saved Designs</div>
+        <div class="stat-change up">↑ 18 new</div>
+      </div>
+    </div>
+
+    <!-- AI Suggestion Banner -->
+    <div style="background:linear-gradient(135deg,rgba(61,232,208,0.06) 0%,rgba(240,192,96,0.04) 100%);border:1px solid rgba(61,232,208,0.15);border-radius:var(--radius-md);padding:1.25rem 1.5rem;margin-bottom:2.5rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;" class="reveal-item">
+      <div style="width:44px;height:44px;border-radius:12px;background:var(--teal-glow);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🤖</div>
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:0.9rem;color:var(--teal-bright);margin-bottom:0.2rem;">AI Insight Ready</div>
+        <div style="font-size:0.83rem;color:var(--text-secondary);">Your living room project has a new suggestion: warm pendant lighting could improve ambiance by 40%. Click to view.</div>
+      </div>
+      <a href="/design-studio" class="btn btn-teal btn-sm">View Suggestion</a>
+    </div>
+
+    <!-- Recent Projects -->
+    <div class="recent-projects">
+      <div class="section-row-header">
+        <div class="section-row-title">Recent Projects</div>
+        <a href="#" class="btn btn-ghost btn-sm">View All →</a>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card reveal-item" onclick="window.location.href='/design-studio'">
+          <div class="project-thumb">
+            <div class="project-thumb-gradient" style="background:linear-gradient(135deg,#1a2a1a,#2d4a1f);"></div>
+            <span style="position:relative;z-index:1;">🛋️</span>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Living Room Renovation</div>
+            <div class="project-meta">
+              <span class="status-dot status-active"></span>
+              Active · Updated 2h ago
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal-item" onclick="window.location.href='/design-studio'">
+          <div class="project-thumb">
+            <div class="project-thumb-gradient" style="background:linear-gradient(135deg,#1a1a2e,#16213e);"></div>
+            <span style="position:relative;z-index:1;">🛏️</span>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Master Bedroom Redo</div>
+            <div class="project-meta">
+              <span class="status-dot status-draft"></span>
+              Draft · Updated yesterday
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal-item" onclick="window.location.href='/design-studio'">
+          <div class="project-thumb">
+            <div class="project-thumb-gradient" style="background:linear-gradient(135deg,#2a1a0e,#3d2b10);"></div>
+            <span style="position:relative;z-index:1;">🍳</span>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Kitchen Modular Design</div>
+            <div class="project-meta">
+              <span class="status-dot status-active"></span>
+              Active · Updated 3 days ago
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal-item" style="border-style:dashed;display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:160px;" onclick="window.location.href='/design-studio'">
+          <div style="text-align:center;color:var(--text-muted);">
+            <div style="font-size:2rem;margin-bottom:0.5rem;">+</div>
+            <div style="font-size:0.85rem;font-weight:600;">New Project</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row: Activity + Quick actions -->
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:1.5rem;" class="reveal-item">
+      <!-- Activity Feed -->
+      <div>
+        <div class="section-row-header">
+          <div class="section-row-title">Recent Activity</div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:0 1.25rem;">
+          <div class="activity-feed">
+            <div class="activity-item">
+              <div class="activity-icon" style="background:var(--teal-glow);color:var(--teal-bright);">🤖</div>
+              <div class="activity-text">
+                <div class="activity-desc"><strong>AI analyzed</strong> your living room photo — 3 recommendations ready</div>
+                <div class="activity-time">2 hours ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:var(--gold-glow);color:var(--gold-bright);">📱</div>
+              <div class="activity-text">
+                <div class="activity-desc"><strong>AR Session</strong> — Placed 4 furniture items in Master Bedroom</div>
+                <div class="activity-time">Yesterday at 3:45 PM</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:var(--terra-glow);color:var(--terra);">🎨</div>
+              <div class="activity-text">
+                <div class="activity-desc"><strong>Style updated</strong> to Bohemian for Kitchen project</div>
+                <div class="activity-time">2 days ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(160,122,255,0.1);color:#a07aff;">⭐</div>
+              <div class="activity-text">
+                <div class="activity-desc"><strong>Saved</strong> 6 designs from the gallery to your collection</div>
+                <div class="activity-time">3 days ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick actions -->
+      <div>
+        <div class="section-row-header">
+          <div class="section-row-title">Quick Actions</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <a href="/design-studio" class="btn btn-secondary btn-full" style="justify-content:flex-start;gap:0.75rem;">
+            <span>🎨</span> Open Design Studio
+          </a>
+          <a href="/ar-view" class="btn btn-secondary btn-full" style="justify-content:flex-start;gap:0.75rem;">
+            <span>📱</span> Launch AR View
+          </a>
+          <a href="/gallery" class="btn btn-secondary btn-full" style="justify-content:flex-start;gap:0.75rem;">
+            <span>🖼</span> Browse Gallery
+          </a>
+          <button class="btn btn-secondary btn-full" style="justify-content:flex-start;gap:0.75rem;" onclick="Toast.info('Room Planner','Coming soon in v2!')">
+            <span>📐</span> Room Planner
+          </button>
+          <button class="btn btn-secondary btn-full" style="justify-content:flex-start;gap:0.75rem;" id="voiceBtnDash" onclick="document.getElementById('voiceBtn').click()">
+            <span>🎤</span> Voice Assistant
+          </button>
+        </div>
+
+        <!-- Usage -->
+        <div style="margin-top:1.25rem;padding:1.25rem;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);">
+          <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.08em;">Monthly Usage</div>
+          <div style="margin-bottom:0.75rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:0.4rem;">
+              <span style="color:var(--text-muted);">AI Analyses</span>
+              <span style="color:var(--gold-bright);">3 / 5</span>
+            </div>
+            <div style="height:4px;background:var(--bg-elevated);border-radius:100px;">
+              <div style="height:100%;width:60%;background:linear-gradient(90deg,var(--gold-mid),var(--gold-bright));border-radius:100px;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:0.4rem;">
+              <span style="color:var(--text-muted);">Storage</span>
+              <span style="color:var(--teal-bright);">1.2 / 5 GB</span>
+            </div>
+            <div style="height:4px;background:var(--bg-elevated);border-radius:100px;">
+              <div style="height:100%;width:24%;background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright));border-radius:100px;"></div>
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary btn-sm btn-full" style="margin-top:1rem;">Upgrade to Pro ↑</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<button class="voice-btn" id="voiceBtn" aria-label="Voice Assistant">🎤</button>
+
+<script src="/static/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('sidebarToggle') && (document.getElementById('sidebarToggle').style.display = 'inline-flex');
+  });
+</script>
+</body>
+</html>

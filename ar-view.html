@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AR View – Gruha Alankara</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-icon">🏛</div>
+    <div class="nav-brand-text">
+      <span class="brand-main">Gruha Alankara</span>
+      <span class="brand-sub">AR View</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/design-studio">Studio</a></li>
+    <li><a href="/ar-view" class="active">AR View</a></li>
+  </ul>
+  <div class="nav-actions">
+    <span class="tag tag-teal" style="animation:pulse 2s ease infinite;">● LIVE</span>
+    <button class="nav-hamburger" id="navHam"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile-drawer">
+  <a href="/dashboard">📊 Dashboard</a>
+  <a href="/gallery">🖼 Gallery</a>
+  <a href="/design-studio">🎨 Studio</a>
+  <a href="/ar-view">📱 AR View</a>
+</div>
+
+<div class="ar-layout">
+  <!-- AR Viewport -->
+  <div class="ar-viewport" id="arViewport">
+    <!-- Live video feed -->
+    <video id="arFeed" autoplay playsinline muted class="ar-feed" style="display:none;"></video>
+
+    <!-- Placeholder when camera not started -->
+    <div id="arPlaceholder" class="ar-placeholder-feed">
+      <div class="placeholder-icon">📱</div>
+      <div class="placeholder-text" style="font-family:var(--font-title);font-size:1.1rem;color:var(--text-secondary);margin-bottom:0.5rem;">Augmented Reality View</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);text-align:center;max-width:300px;margin-bottom:1.5rem;">Enable your camera to see your real room, then place virtual furniture from the panel on the right.</div>
+      <button class="btn btn-primary btn-lg" id="startARBtn">
+        📷 Start AR Camera
+      </button>
+
+      <!-- Demo furniture preview for non-camera mode -->
+      <div style="margin-top:2.5rem;padding:1.5rem;background:rgba(255,255,255,0.02);border:1px solid var(--border-subtle);border-radius:var(--radius-md);max-width:400px;text-align:left;">
+        <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">📌 How to use AR</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);font-weight:700;">1.</span> Click "Start AR Camera" and allow camera access
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);font-weight:700;">2.</span> Select furniture from the right panel to add it
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);font-weight:700;">3.</span> Drag furniture to position it in your room
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);font-weight:700;">4.</span> Press Delete/Backspace to remove selected item
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-secondary);">
+            <span style="color:var(--gold-bright);font-weight:700;">5.</span> Take a snapshot to save your AR composition
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AR HUD Overlay (always visible) -->
+    <div class="ar-hud" id="arHUD" style="display:none;">
+      <div class="ar-hud-corner tl"></div>
+      <div class="ar-hud-corner tr"></div>
+      <div class="ar-hud-corner bl"></div>
+      <div class="ar-hud-corner br"></div>
+      <div class="ar-crosshair"></div>
+
+      <div class="ar-status-badge">
+        <div class="ar-live-dot"></div>
+        AR Active · Depth Tracking
+      </div>
+
+      <!-- Surface detection grid lines -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.04;pointer-events:none;">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--teal-bright)" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+      </svg>
+    </div>
+
+    <!-- AR Controls (bottom bar) -->
+    <div class="ar-controls" id="arControlsBar" style="display:none;">
+      <button class="btn btn-secondary" id="stopARBtn" style="display:none;">⏹ Stop</button>
+      <button class="btn btn-secondary" id="snapshotBtn">📸 Snapshot</button>
+      <button class="btn btn-secondary" onclick="Toast.info('Surface scan','Rescanning floor surface...')">🔍 Rescan</button>
+      <button class="btn btn-danger" onclick="clearAllFurniture()">🗑 Clear All</button>
+    </div>
+  </div>
+
+  <!-- AR Sidebar -->
+  <div class="ar-sidebar">
+    <div class="ar-sidebar-header">
+      <div class="ar-sidebar-title">🛋 Furniture Catalog</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.3rem;">Tap to place · Drag to move</div>
+    </div>
+
+    <!-- Search -->
+    <div style="padding:0.75rem 1rem;border-bottom:1px solid var(--border-subtle);">
+      <input
+        class="form-input"
+        type="text"
+        placeholder="🔍 Search furniture..."
+        style="font-size:0.82rem;"
+        oninput="filterFurniture(this.value)"
+      />
+    </div>
+
+    <!-- Category tabs -->
+    <div style="padding:0.5rem 1rem;border-bottom:1px solid var(--border-subtle);display:flex;gap:0.4rem;flex-wrap:wrap;">
+      <button class="filter-btn active" style="font-size:0.72rem;padding:0.3rem 0.7rem;" onclick="filterByCategory(this,'all')">All</button>
+      <button class="filter-btn" style="font-size:0.72rem;padding:0.3rem 0.7rem;" onclick="filterByCategory(this,'seating')">Seating</button>
+      <button class="filter-btn" style="font-size:0.72rem;padding:0.3rem 0.7rem;" onclick="filterByCategory(this,'storage')">Storage</button>
+      <button class="filter-btn" style="font-size:0.72rem;padding:0.3rem 0.7rem;" onclick="filterByCategory(this,'decor')">Decor</button>
+      <button class="filter-btn" style="font-size:0.72rem;padding:0.3rem 0.7rem;" onclick="filterByCategory(this,'lighting')">Lighting</button>
+    </div>
+
+    <div class="ar-furniture-list" id="furnitureList">
+      <!-- Seating -->
+      <div class="ar-furniture-item" data-category="seating" data-name="Sofa">
+        <div class="ar-furniture-emoji">🛋️</div>
+        <div class="ar-furniture-name">Sofa</div>
+      </div>
+      <div class="ar-furniture-item" data-category="seating" data-name="Chair">
+        <div class="ar-furniture-emoji">🪑</div>
+        <div class="ar-furniture-name">Chair</div>
+      </div>
+      <div class="ar-furniture-item" data-category="seating" data-name="Armchair">
+        <div class="ar-furniture-emoji">🪑</div>
+        <div class="ar-furniture-name">Armchair</div>
+      </div>
+      <div class="ar-furniture-item" data-category="seating" data-name="Bean Bag">
+        <div class="ar-furniture-emoji">🫘</div>
+        <div class="ar-furniture-name">Bean Bag</div>
+      </div>
+
+      <!-- Tables -->
+      <div class="ar-furniture-item" data-category="storage" data-name="Coffee Table">
+        <div class="ar-furniture-emoji">🪵</div>
+        <div class="ar-furniture-name">Coffee Table</div>
+      </div>
+      <div class="ar-furniture-item" data-category="storage" data-name="Dining Table">
+        <div class="ar-furniture-emoji">🍽️</div>
+        <div class="ar-furniture-name">Dining Table</div>
+      </div>
+      <div class="ar-furniture-item" data-category="storage" data-name="Bookshelf">
+        <div class="ar-furniture-emoji">📚</div>
+        <div class="ar-furniture-name">Bookshelf</div>
+      </div>
+      <div class="ar-furniture-item" data-category="storage" data-name="Wardrobe">
+        <div class="ar-furniture-emoji">🗄️</div>
+        <div class="ar-furniture-name">Wardrobe</div>
+      </div>
+
+      <!-- Beds -->
+      <div class="ar-furniture-item" data-category="seating" data-name="Bed">
+        <div class="ar-furniture-emoji">🛏️</div>
+        <div class="ar-furniture-name">Bed</div>
+      </div>
+      <div class="ar-furniture-item" data-category="seating" data-name="Mattress">
+        <div class="ar-furniture-emoji">🪶</div>
+        <div class="ar-furniture-name">Mattress</div>
+      </div>
+
+      <!-- Decor -->
+      <div class="ar-furniture-item" data-category="decor" data-name="Plant">
+        <div class="ar-furniture-emoji">🌿</div>
+        <div class="ar-furniture-name">Plant</div>
+      </div>
+      <div class="ar-furniture-item" data-category="decor" data-name="Rug">
+        <div class="ar-furniture-emoji">🧣</div>
+        <div class="ar-furniture-name">Area Rug</div>
+      </div>
+      <div class="ar-furniture-item" data-category="decor" data-name="Mirror">
+        <div class="ar-furniture-emoji">🪞</div>
+        <div class="ar-furniture-name">Mirror</div>
+      </div>
+      <div class="ar-furniture-item" data-category="decor" data-name="Art">
+        <div class="ar-furniture-emoji">🖼️</div>
+        <div class="ar-furniture-name">Wall Art</div>
+      </div>
+
+      <!-- Lighting -->
+      <div class="ar-furniture-item" data-category="lighting" data-name="Lamp">
+        <div class="ar-furniture-emoji">💡</div>
+        <div class="ar-furniture-name">Floor Lamp</div>
+      </div>
+      <div class="ar-furniture-item" data-category="lighting" data-name="Chandelier">
+        <div class="ar-furniture-emoji">🪔</div>
+        <div class="ar-furniture-name">Chandelier</div>
+      </div>
+      <div class="ar-furniture-item" data-category="lighting" data-name="Sconce">
+        <div class="ar-furniture-emoji">🔆</div>
+        <div class="ar-furniture-name">Wall Sconce</div>
+      </div>
+      <div class="ar-furniture-item" data-category="lighting" data-name="Pendant">
+        <div class="ar-furniture-emoji">⭕</div>
+        <div class="ar-furniture-name">Pendant</div>
+      </div>
+    </div>
+
+    <!-- Selected furniture info panel -->
+    <div class="ar-info-panel">
+      <div class="ar-info-title">📍 Position Tracker</div>
+      <div class="ar-coord">
+        <span>X Position</span>
+        <span id="coordX">— cm</span>
+      </div>
+      <div class="ar-coord">
+        <span>Y Position</span>
+        <span id="coordY">— cm</span>
+      </div>
+      <div class="ar-coord">
+        <span>Depth (Z)</span>
+        <span id="coordZ">— m</span>
+      </div>
+      <div class="ar-coord">
+        <span>Surface</span>
+        <span style="color:var(--gold-bright);font-family:var(--font-mono);font-size:0.78rem;" id="surfaceType">Floor</span>
+      </div>
+      <div style="margin-top:0.75rem;padding:0.6rem;background:var(--bg-card);border-radius:var(--radius-sm);font-size:0.75rem;color:var(--text-muted);text-align:center;">
+        Click furniture to select · Del to remove
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="voice-btn" id="voiceBtn" aria-label="Voice Assistant">🎤</button>
+
+<script>
+  // Show HUD and controls when AR starts
+  const originalInit = window.initARView;
+
+  function clearAllFurniture() {
+    const viewport = document.getElementById('arViewport');
+    const items = viewport.querySelectorAll('.ar-furniture');
+    items.forEach(i => i.remove());
+    window.Toast && Toast.info('Cleared', 'All furniture removed from AR view.');
+  }
+
+  function filterFurniture(query) {
+    const items = document.querySelectorAll('.ar-furniture-item');
+    query = query.toLowerCase();
+    items.forEach(item => {
+      const name = item.querySelector('.ar-furniture-name').textContent.toLowerCase();
+      item.style.display = name.includes(query) ? '' : 'none';
+    });
+  }
+
+  function filterByCategory(btn, cat) {
+    document.querySelectorAll('.ar-sidebar .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const items = document.querySelectorAll('.ar-furniture-item');
+    items.forEach(item => {
+      item.style.display = (cat === 'all' || item.dataset.category === cat) ? '' : 'none';
+    });
+  }
+
+  // Hook into AR start to show HUD and controls
+  document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('startARBtn');
+    const hud = document.getElementById('arHUD');
+    const controls = document.getElementById('arControlsBar');
+    const stopBtn = document.getElementById('stopARBtn');
+
+    if (startBtn) {
+      startBtn.addEventListener('click', () => {
+        hud.style.display = 'block';
+        controls.style.display = 'flex';
+        stopBtn.style.display = 'inline-flex';
+      });
+    }
+
+    if (stopBtn) {
+      stopBtn.addEventListener('click', () => {
+        hud.style.display = 'none';
+        controls.style.display = 'none';
+      });
+    }
+  });
+</script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

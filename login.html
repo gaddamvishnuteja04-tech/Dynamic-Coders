@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In – Gruha Alankara</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-icon">🏛</div>
+    <div class="nav-brand-text">
+      <span class="brand-main">Gruha Alankara</span>
+      <span class="brand-sub">Interior · AR · AI</span>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <a href="/register" class="btn btn-primary btn-sm">Create Account</a>
+  </div>
+</nav>
+
+<div class="auth-page">
+  <!-- Left Visual -->
+  <div class="auth-visual">
+    <div class="auth-visual-bg"></div>
+
+    <!-- Decorative rings -->
+    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+      <div style="position:absolute;width:300px;height:300px;border:1px dashed rgba(240,192,96,0.1);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%) rotate(0deg);animation:rotateRing 40s linear infinite;"></div>
+      <div style="position:absolute;width:450px;height:450px;border:1px solid rgba(61,232,208,0.06);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:rotateRing 60s linear infinite reverse;"></div>
+    </div>
+
+    <div class="auth-visual-content">
+      <div class="auth-visual-icon">🏛</div>
+      <div class="auth-visual-quote">"The home should be the treasure chest of living."</div>
+      <div class="auth-visual-attr">— Le Corbusier</div>
+
+      <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:0.75rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+          <span style="color:var(--teal-bright);">✓</span>
+          <span style="font-size:0.85rem;color:var(--text-secondary);">AI-powered design suggestions</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+          <span style="color:var(--teal-bright);">✓</span>
+          <span style="font-size:0.85rem;color:var(--text-secondary);">Live AR furniture placement</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+          <span style="color:var(--teal-bright);">✓</span>
+          <span style="font-size:0.85rem;color:var(--text-secondary);">200+ Indian design styles</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-diamonds">
+      <div class="auth-diamond"></div>
+      <div class="auth-diamond" style="opacity:0.6;"></div>
+      <div class="auth-diamond" style="opacity:0.8;"></div>
+    </div>
+  </div>
+
+  <!-- Right Form -->
+  <div class="auth-form-side">
+    <div class="auth-form-box">
+      <div class="auth-form-header">
+        <div class="tag tag-gold" style="margin-bottom:1rem;">Welcome back</div>
+        <h1 class="auth-form-title">Sign in to<br>your workspace</h1>
+        <p class="auth-form-subtitle">Continue designing your perfect space.</p>
+      </div>
+
+      <div class="auth-social-btns">
+        <button class="auth-social-btn" onclick="Toast.info('Google Sign In', 'Coming soon!')">
+          <span>🌐</span> Google
+        </button>
+        <button class="auth-social-btn" onclick="Toast.info('Facebook Sign In', 'Coming soon!')">
+          <span>📘</span> Facebook
+        </button>
+      </div>
+
+      <div class="auth-divider"><span>or continue with email</span></div>
+
+      <form class="auth-form" id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <div class="form-input-icon">
+            <span class="input-icon">✉</span>
+            <input
+              class="form-input" type="email" id="loginEmail"
+              placeholder="you@example.com" autocomplete="email" required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">
+            Password
+            <a href="#" style="float:right;font-size:0.78rem;color:var(--gold-mid);font-weight:400;">Forgot password?</a>
+          </label>
+          <div class="password-wrapper">
+            <div class="form-input-icon">
+              <span class="input-icon">🔒</span>
+              <input
+                class="form-input" type="password" id="loginPassword"
+                placeholder="Your password" autocomplete="current-password" required
+                style="padding-left:2.75rem; padding-right:3rem;"
+              />
+            </div>
+            <button type="button" class="password-toggle" style="right:0.9rem;">👁️</button>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+          <input type="checkbox" id="rememberMe" style="accent-color:var(--gold-mid);width:16px;height:16px;" />
+          <label for="rememberMe" style="font-size:0.85rem;color:var(--text-muted);cursor:pointer;">Remember me for 30 days</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg">Sign In</button>
+      </form>
+
+      <p class="auth-footer-link">
+        New to Gruha Alankara? <a href="/register">Create a free account</a>
+      </p>
+
+      <div style="margin-top:2rem;padding:1rem;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);">
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.4rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Demo Credentials</div>
+        <div style="font-size:0.82rem;color:var(--text-secondary);">Email: <span style="color:var(--gold-bright);">demo@gruha.ai</span></div>
+        <div style="font-size:0.82rem;color:var(--text-secondary);">Password: <span style="color:var(--gold-bright);">gruha2024</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>

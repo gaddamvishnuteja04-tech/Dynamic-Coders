@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Studio – Gruha Alankara</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-brand-icon">🏛</div>
+    <div class="nav-brand-text">
+      <span class="brand-main">Gruha Alankara</span>
+      <span class="brand-sub">Design Studio</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/design-studio" class="active">Studio</a></li>
+    <li><a href="/ar-view">AR View</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="/ar-view" class="btn btn-teal btn-sm">Launch AR →</a>
+    <button class="nav-hamburger" id="navHam"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile-drawer">
+  <a href="/dashboard">📊 Dashboard</a>
+  <a href="/gallery">🖼 Gallery</a>
+  <a href="/design-studio">🎨 Design Studio</a>
+  <a href="/ar-view">📱 AR View</a>
+</div>
+
+<div style="padding-top:var(--nav-h);">
+  <!-- Studio header bar -->
+  <div style="background:var(--bg-deep);border-bottom:1px solid var(--border-subtle);padding:0.9rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <span class="tag tag-gold">🎨 AI Design Studio</span>
+      <span style="font-size:0.8rem;color:var(--text-muted);">Powered by Gruha AI v2.4</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <button class="btn btn-ghost btn-sm" onclick="Toast.info('Saved!','Project auto-saved.')">💾 Save</button>
+      <button class="btn btn-ghost btn-sm" onclick="Toast.info('Export','Feature coming soon!')">📤 Export</button>
+      <button class="btn btn-primary btn-sm" data-play-audio="Welcome to Gruha Alankara Design Studio. Start by activating your camera to analyze your room.">🔊 Audio Guide</button>
+    </div>
+  </div>
+
+  <div class="studio-layout">
+    <!-- Left Panel: Camera + Controls -->
+    <div class="studio-panel">
+      <div class="studio-panel-title">📷 Room Capture</div>
+
+      <!-- Camera viewport -->
+      <div class="studio-cam-wrapper" id="camWrapper">
+        <video id="studioVideo" autoplay playsinline muted style="display:none;"></video>
+        <canvas id="studioCanvas" style="display:none;"></canvas>
+        <div class="cam-placeholder" id="camPlaceholder">
+          <div class="cam-placeholder-icon">📷</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">Camera inactive</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.3rem;">Click below to start</div>
+        </div>
+      </div>
+
+      <div class="cam-controls">
+        <button class="btn btn-primary" id="startCamBtn" style="flex:1;">
+          📷 Start Camera
+        </button>
+        <button class="btn btn-secondary" id="captureBtn" disabled style="flex:1;">
+          📸 Capture
+        </button>
+      </div>
+
+      <!-- Upload progress -->
+      <div class="upload-progress" id="uploadProgress">
+        <div class="progress-label" id="progressLabel">Uploading... 0%</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Style Selection -->
+      <div class="studio-panel-title">🎨 Design Style</div>
+
+      <div class="form-group">
+        <label class="form-label">Style Category</label>
+        <select class="form-select" id="styleCategory">
+          <option>All Styles</option>
+          <option>Indian Traditional</option>
+          <option>Contemporary Indian</option>
+          <option>International Modern</option>
+          <option>Minimalist</option>
+          <option>Bohemian</option>
+        </select>
+      </div>
+
+      <div class="style-chips">
+        <div class="style-chip active" data-style="Modern">Modern</div>
+        <div class="style-chip" data-style="Traditional">Traditional</div>
+        <div class="style-chip" data-style="Bohemian">Bohemian</div>
+        <div class="style-chip" data-style="Minimalist">Minimalist</div>
+        <div class="style-chip" data-style="Rustic">Rustic</div>
+        <div class="style-chip" data-style="Haveli">Haveli</div>
+        <div class="style-chip" data-style="Coastal">Coastal</div>
+        <div class="style-chip" data-style="Art Deco">Art Deco</div>
+        <div class="style-chip" data-style="Scandinavian">Scandinavian</div>
+        <div class="style-chip" data-style="Industrial">Industrial</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Room Type -->
+      <div class="studio-panel-title">🏠 Room Details</div>
+
+      <div class="form-group">
+        <label class="form-label">Room Type</label>
+        <select class="form-select">
+          <option>Living Room</option>
+          <option>Bedroom</option>
+          <option>Kitchen</option>
+          <option>Dining Room</option>
+          <option>Bathroom</option>
+          <option>Pooja Room</option>
+          <option>Home Office</option>
+          <option>Kids Room</option>
+        </select>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Length (ft)</label>
+          <input class="form-input" type="number" placeholder="12" min="6" max="60" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Width (ft)</label>
+          <input class="form-input" type="number" placeholder="10" min="6" max="60" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Budget Range</label>
+        <select class="form-select">
+          <option>Under ₹1 Lakh</option>
+          <option>₹1L – ₹3L</option>
+          <option>₹3L – ₹7L</option>
+          <option>₹7L – ₹15L</option>
+          <option>₹15L+</option>
+        </select>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        <button class="btn btn-teal btn-full" id="analyzeBtn" disabled>
+          🤖 Analyze with AI
+        </button>
+        <button class="btn btn-secondary btn-full" id="uploadBtn" disabled>
+          📤 Upload Image
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Workspace -->
+    <div class="studio-workspace">
+      <!-- Workspace header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <div style="font-family:var(--font-title);font-size:1.2rem;font-weight:700;color:var(--text-primary);">AI Design Workspace</div>
+          <div style="font-size:0.82rem;color:var(--text-muted);margin-top:0.2rem;">Capture a room photo, select a style, and get personalized recommendations</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;">
+          <button class="btn btn-ghost btn-sm" onclick="Toast.info('Mood Board','Coming soon!')">🖼 Mood Board</button>
+          <button class="btn btn-ghost btn-sm" onclick="Toast.info('3D View','Coming in next update!')">🧊 3D View</button>
+        </div>
+      </div>
+
+      <!-- Quick info cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;">
+        <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:1rem;text-align:center;">
+          <div style="font-size:1.4rem;margin-bottom:0.3rem;">📷</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">Step 1</div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);">Capture Room</div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:1rem;text-align:center;">
+          <div style="font-size:1.4rem;margin-bottom:0.3rem;">🎨</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">Step 2</div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);">Select Style</div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:1rem;text-align:center;">
+          <div style="font-size:1.4rem;margin-bottom:0.3rem;">🤖</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">Step 3</div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);">Get AI Tips</div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:1rem;text-align:center;">
+          <div style="font-size:1.4rem;margin-bottom:0.3rem;">📱</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">Step 4</div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);">Try in AR</div>
+        </div>
+      </div>
+
+      <!-- AI Result Box -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+          <div style="font-family:var(--font-title);font-size:1rem;font-weight:700;color:var(--text-primary);">🤖 AI Recommendations</div>
+          <div style="display:flex;gap:0.5rem;">
+            <button class="btn btn-ghost btn-sm" id="refreshAI" onclick="Toast.info('Refreshing AI...','New suggestions loading')">↻ Refresh</button>
+            <button class="btn btn-ghost btn-sm" onclick="Toast.success('Copied!','Results copied to clipboard')">📋 Copy</button>
+          </div>
+        </div>
+
+        <div class="ai-result-box" id="aiResult">
+          <div class="ai-result-empty">
+            <div class="ai-result-icon">✨</div>
+            <div class="ai-result-text">AI recommendations will appear here</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.25rem;">Capture a room photo and click "Analyze with AI"</div>
+          </div>
+          <div class="ai-result-content" id="aiResultContent"></div>
+        </div>
+      </div>
+
+      <!-- Color palette picker -->
+      <div>
+        <div style="font-family:var(--font-title);font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.75rem;">🎨 Color Palette Explorer</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:0.5rem;">
+          <div onclick="Toast.info('Palette selected','Warm Ivory applied!')" style="cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);transition:var(--transition);" class="card" style="padding:0;">
+            <div style="height:48px;background:#f5f0e8;"></div>
+            <div style="padding:0.35rem 0.5rem;font-size:0.65rem;color:var(--text-muted);text-align:center;">Warm Ivory</div>
+          </div>
+          <div onclick="Toast.info('Palette selected','Deep Teal applied!')" style="cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);" class="card">
+            <div style="height:48px;background:#1A6B66;"></div>
+            <div style="padding:0.35rem 0.5rem;font-size:0.65rem;color:var(--text-muted);text-align:center;">Deep Teal</div>
+          </div>
+          <div onclick="Toast.info('Palette selected','Terracotta applied!')" style="cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);" class="card">
+            <div style="height:48px;background:#C4603A;"></div>
+            <div style="padding:0.35rem 0.5rem;font-size:0.65rem;color:var(--text-muted);text-align:center;">Terracotta</div>
+          </div>
+          <div onclick="Toast.info('Palette selected','Saffron Gold applied!')" style="cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);" class="card">
+            <div style="height:48px;background:#F0A500;"></div>
+            <div style="padding:0.35rem 0.5rem;font-size:0.65rem;color:var(--text-muted);text-align:center;">Saffron</div>
+          </div>
+          <div onclick="Toast.info('Palette selected','Charcoal Slate applied!')" style="cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);" class="card">
+            <div style="height:48px;background:#2d3340;"></div>
+            <div style="padding:0.35rem 0.5rem;font-size:0.65rem;color:var(--text-muted);text-align:center;">Slate</div>
+          </div>
+          <div onclick="Toast.info('Palette selected','Rose Quartz applied!')" style="cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-subtle);" class="card">
+            <div style="height:48px;background:#d4a5b2;"></div>
+            <div style="padding:0.35rem 0.5rem;font-size:0.65rem;color:var(--text-muted);text-align:center;">Rose</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Try in AR banner -->
+      <div style="background:linear-gradient(135deg,rgba(61,232,208,0.06) 0%,rgba(240,192,96,0.04) 100%);border:1px solid rgba(61,232,208,0.15);border-radius:var(--radius-md);padding:1.5rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">📱</div>
+        <div style="font-family:var(--font-title);font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.4rem;">Ready to See It in Real Life?</div>
+        <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.25rem;">Take your design to AR view and see furniture placed in your actual room.</div>
+        <a href="/ar-view" class="btn btn-teal">Launch AR View →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="voice-btn" id="voiceBtn" aria-label="Voice Assistant">🎤</button>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
